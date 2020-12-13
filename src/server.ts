@@ -1,7 +1,7 @@
-import express from 'express';
+import * as express from 'express';
 const cors = require('cors');
 import routes from './routes';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 import './database';
 import 'reflect-metadata';
 

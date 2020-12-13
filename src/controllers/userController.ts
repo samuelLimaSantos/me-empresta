@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { promisify } from 'util';
-import fs, { unlink } from 'fs';
+import * as fs from 'fs';
 import CreateUser from '../services/createUser';
 import hashPassword from '../services/user_aux/hashPassword';
 import checkIfUserExists from '../services/user_aux/checkIfUserExists';
