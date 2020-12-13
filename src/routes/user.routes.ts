@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import multer from 'multer';
+import * as multer from 'multer';
 import UserController from '../controllers/userController';
 import multerConfig from '../config/multer';
 
