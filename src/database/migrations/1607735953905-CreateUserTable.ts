@@ -24,7 +24,7 @@ export class CreateUserTable1607735953905 implements MigrationInterface {
           },
           {
             name: 'cpf',
-            type: 'varchar(11)',
+            type: 'varchar(15)',
             isNullable: false,
             isUnique: true,
           },
@@ -41,7 +41,7 @@ export class CreateUserTable1607735953905 implements MigrationInterface {
           },
           {
             name: 'whatsapp',
-            type: 'varchar(10)',
+            type: 'varchar(16)',
             isNullable: false,
           },
           {

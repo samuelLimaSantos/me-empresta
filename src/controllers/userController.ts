@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { promisify } from 'util';
+import fs, { unlink } from 'fs';
 import CreateUser from '../services/createUser';
 import hashPassword from '../services/user_aux/hashPassword';
 import checkIfUserExists from '../services/user_aux/checkIfUserExists';
@@ -35,6 +37,9 @@ export default class UserController {
 
       return response.json(user);
     } catch (error) {
+      console.log(error);
+      const deleteAsync = promisify(fs.unlink);
+      await deleteAsync(request.file.path);
       response.status(400).json({message: error.message});
     }
 

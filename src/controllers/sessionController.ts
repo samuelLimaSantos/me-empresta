@@ -13,6 +13,8 @@ export default class SessionController {
 
       const user = await loginValidation.execute(email, password);
 
+      console.log(user);
+
       const token = generateTokenJWT.execute(user.id);
 
       return response.json({ token });

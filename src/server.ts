@@ -14,8 +14,8 @@ app.use(express.json());
 
 app.use(routes);
 
-const port = 3000;
+const port = 3333;
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Project is running at port ${port}😈😈!`);
 });

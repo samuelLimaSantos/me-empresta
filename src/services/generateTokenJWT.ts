@@ -2,7 +2,7 @@ import { sign } from 'jsonwebtoken';
 import authConfig from '../config/authConfig';
 
 export default class GenerateTokenJWT {
-  public execute (id: string) {
+  public execute (id: number | string) {
 
     const { expiresIn } = authConfig.jwt;
 
@@ -13,7 +13,7 @@ export default class GenerateTokenJWT {
     },
     secret,
     {
-      subject: id,
+      subject: String(id),
       expiresIn
     })
 
