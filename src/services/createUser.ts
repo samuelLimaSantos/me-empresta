@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import UserModel from '../models/userModel';
+import Error from '../errors/AppError';
 
 interface IRequestDTO {
   photo_id: string;
@@ -14,12 +15,18 @@ export default class CreateUser {
   public async execute (userDate: IRequestDTO) {
     const userRepository = getRepository(UserModel);
 
-    const user = userRepository.create(userDate);
+    try {
+      const user = userRepository.create(userDate);
 
-    await userRepository.save(user);
+      await userRepository.save(user);
 
-    user.password = '';
+      user.password = '';
 
-    return user;
+      return user;
+
+    } catch (error) {
+      throw new Error('Internal error during create new user', 500)  ;
+    }
+
   }
 }

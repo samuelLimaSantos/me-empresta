@@ -13,13 +13,11 @@ export default class SessionController {
 
       const user = await loginValidation.execute(email, password);
 
-      console.log(user);
-
       const token = generateTokenJWT.execute(user.id);
 
       return response.json({ token, userId: user.id });
     } catch (error) {
-      return response.status(400).json({ message: error.message });
+      return response.status(error.statusCode).json({ message: error.message });
     }
   }
 }

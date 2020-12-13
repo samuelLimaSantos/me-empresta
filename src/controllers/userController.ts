@@ -6,6 +6,7 @@ import UserModel from '../models/userModel';
 import CreateUser from '../services/createUser';
 import hashPassword from '../services/user_aux/hashPassword';
 import checkIfUserExists from '../services/user_aux/checkIfUserExists';
+import GetUsers from '../services/getUsers';
 
 
 export default class UserController {
@@ -39,10 +40,9 @@ export default class UserController {
 
       return response.json(user);
     } catch (error) {
-      console.log(error);
       const deleteAsync = promisify(fs.unlink);
       await deleteAsync(request.file.path);
-      response.status(400).json({message: error.message});
+      response.status(error.statusCode).json({message: error.message});
     }
 
   }
@@ -50,16 +50,28 @@ export default class UserController {
   public async index (request: Request, response: Response) {
     const { userId } = request.params;
 
-    const userRepository = getRepository(UserModel);
+    try {
+      const getUsers = new GetUsers()
 
-    const user = await userRepository.findOne({
-      where: {
-        id: userId
-      }
-    })
+      const user = await getUsers.execute(userId);
 
-    user.password = "";
+      return response.json(user);
 
-    return response.json(user);
+    } catch (error) {
+      response.status(error.statusCode).json({message: error.message});
+    }
+  }
+
+  public async store (request: Request, response: Response) {
+    try {
+      const getUsers = new GetUsers()
+
+      const users = await getUsers.execute();
+
+      return response.json(users);
+
+    } catch (error) {
+      response.status(error.statusCode).json({message: error.message});
+    }
   }
 }

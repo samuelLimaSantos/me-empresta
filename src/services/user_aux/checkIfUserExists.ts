@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import UserModel from '../../models/userModel';
+import Error from '../../errors/AppError';
 
 const checkIfUserExists = async (cpf: string, email: string) => {
   const userRepository = getRepository(UserModel);
@@ -16,7 +17,7 @@ const checkIfUserExists = async (cpf: string, email: string) => {
   });
 
   if (hasUser) {
-    throw new Error('User Already Exists');
+    throw new Error('User Already Exists', 400);
   }
 
   return
