@@ -7,3 +7,4 @@ temp/
 
 src/uploads/*
 !src/uploads/.gitkeep
+!src/uploads/index.ts
