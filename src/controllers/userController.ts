@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { promisify } from 'util';
 import * as fs from 'fs';
+import { getRepository } from 'typeorm';
+import UserModel from '../models/userModel';
 import CreateUser from '../services/createUser';
 import hashPassword from '../services/user_aux/hashPassword';
 import checkIfUserExists from '../services/user_aux/checkIfUserExists';
@@ -43,5 +45,21 @@ export default class UserController {
       response.status(400).json({message: error.message});
     }
 
+  }
+
+  public async index (request: Request, response: Response) {
+    const { userId } = request.params;
+
+    const userRepository = getRepository(UserModel);
+
+    const user = await userRepository.findOne({
+      where: {
+        id: userId
+      }
+    })
+
+    user.password = "";
+
+    return response.json(user);
   }
 }

@@ -10,8 +10,6 @@ const routes = Router();
 const userController = new UserController();
 
 routes.post('/', upload.single('photo'), userController.create);
-routes.get('/', (request, response) => {
-  return response.json({message: 'esperance'});
-})
+routes.get('/:userId', userController.index);
 
 export default routes;

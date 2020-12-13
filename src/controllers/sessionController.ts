@@ -17,7 +17,7 @@ export default class SessionController {
 
       const token = generateTokenJWT.execute(user.id);
 
-      return response.json({ token });
+      return response.json({ token, userId: user.id });
     } catch (error) {
       return response.status(400).json({ message: error.message });
     }
