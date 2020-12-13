@@ -50,6 +50,7 @@ export default class UserController {
   public async index (request: Request, response: Response) {
     const { userId } = request.params;
 
+
     try {
       const getUsers = new GetUsers()
 
