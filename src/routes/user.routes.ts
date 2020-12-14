@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import * as multer from 'multer';
 import checkJwt from '../middlewares/checkJwt';
-import UserController from '../controllers/userController';
 import multerConfig from '../config/multer';
+import UserController from '../controllers/userController';
 
 const upload = multer(multerConfig);
 

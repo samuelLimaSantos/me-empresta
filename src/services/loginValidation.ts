@@ -8,6 +8,7 @@ export default class LoginValidation {
     const userRepository = getRepository(UserModel);
 
     const user = await userRepository.findOne({
+      select: ['password', 'id'],
       where: {
         email
       }

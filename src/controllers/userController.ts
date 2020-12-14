@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import { promisify } from 'util';
 import * as fs from 'fs';
-import { getRepository } from 'typeorm';
-import UserModel from '../models/userModel';
 import CreateUser from '../services/createUser';
 import hashPassword from '../services/user_aux/hashPassword';
 import checkIfUserExists from '../services/user_aux/checkIfUserExists';

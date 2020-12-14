@@ -11,6 +11,7 @@ interface IRequestDTO {
   whatsapp: string;
 }
 
+
 export default class CreateUser {
   public async execute (userDate: IRequestDTO) {
     const userRepository = getRepository(UserModel);

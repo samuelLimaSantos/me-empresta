@@ -3,13 +3,18 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  OneToMany,
   UpdateDateColumn } from 'typeorm';
+  import ProductModel from './productModel';
 
 
 @Entity('users')
 export default class UserModel {
   @PrimaryGeneratedColumn()
   id: string;
+
+  @OneToMany(() => ProductModel, (product) => product.user_id)
+  product: UserModel;
 
   @Column()
   photo_id: string;
@@ -23,7 +28,7 @@ export default class UserModel {
   @Column()
   email: string;
 
-  @Column()
+  @Column({select: false})
   password: string;
 
   @Column()
