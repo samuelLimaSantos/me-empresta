@@ -21,6 +21,7 @@ export default class ProductController {
         city,
       } = request.body;
 
+
       const createProduct = new CreateProduct();
 
       const product = await createProduct.execute({
