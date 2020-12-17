@@ -5,7 +5,7 @@ import hashPassword from '../services/user_aux/hashPassword';
 import checkIfUserExists from '../services/user_aux/checkIfUserExists';
 import GetUsers from '../services/getUsers';
 
-const s3 = new aws.S3
+const s3 = new aws.S3()
 
 export default class UserController {
   public async create(request: Request, response: Response) {
@@ -28,7 +28,7 @@ export default class UserController {
       const createUser = new CreateUser();
 
       const user = await createUser.execute({
-        photo_id: request.file.key,
+        photo_id: request.key,
         name,
         cpf,
         email,
@@ -40,7 +40,7 @@ export default class UserController {
     } catch (error) {
       s3.deleteObject({
         Bucket: 'upload-meempresta',
-        Key: request.file.key,
+        Key: request.key,
       }).promise()
       .then((response) => {
         console.log(response);

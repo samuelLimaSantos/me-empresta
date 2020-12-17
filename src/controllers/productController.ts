@@ -24,15 +24,12 @@ export default class ProductController {
         city,
       } = request.body;
 
-      const data = request.body;
-      console.log(data);
-
 
       const createProduct = new CreateProduct();
 
       const product = await createProduct.execute({
         user_id,
-        photo_id: request.file.key,
+        photo_id: request.key,
         title,
         description,
         price: Number(price),
@@ -45,11 +42,11 @@ export default class ProductController {
 
 
 
-      return response.json({product, location: request.file.location});
+      return response.json(product);
     } catch (error) {
       s3.deleteObject({
         Bucket: 'upload-meempresta',
-        Key: request.file.key,
+        Key: request.key,
       }).promise()
       .then((response) => {
         console.log(response);
