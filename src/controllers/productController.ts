@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
 import { promisify } from 'util';
-import * as fs from 'fs';
+import * as aws from 'aws-sdk';
+import * as path from 'path';
 import CreateProduct from '../services/createProduct';
 import ProductModel from '../models/productModel';
 import { getRepository } from 'typeorm';
+
+const s3 = new aws.S3();
 
 
 export default class ProductController {
@@ -21,12 +24,15 @@ export default class ProductController {
         city,
       } = request.body;
 
+      const data = request.body;
+      console.log(data);
+
 
       const createProduct = new CreateProduct();
 
       const product = await createProduct.execute({
         user_id,
-        photo_id: request.file.filename,
+        photo_id: request.file.key,
         title,
         description,
         price: Number(price),
@@ -37,16 +43,31 @@ export default class ProductController {
         city,
       })
 
-      return response.json(product);
+
+
+      return response.json({product, location: request.file.location});
     } catch (error) {
-      const deleteAsync = promisify(fs.unlink);
-      await deleteAsync(request.file.path);
+      s3.deleteObject({
+        Bucket: 'upload-meempresta',
+        Key: request.file.key,
+      }).promise()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((response) => {
+        console.log(response);
+      });
+      // const deleteAsync = promisify(fs.unlink);
+      // await deleteAsync(request.file.path);
       return response.status(500).json(error.message);
     }
   }
 
   public async store (request: Request, response: Response ) {
     const productRepository = getRepository(ProductModel);
+
+    console.log(path.join(__dirname, '..'))
+
 
     const products = await productRepository.find()
 

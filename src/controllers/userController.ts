@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { promisify } from 'util';
-import * as fs from 'fs';
+import * as aws from 'aws-sdk';
 import CreateUser from '../services/createUser';
 import hashPassword from '../services/user_aux/hashPassword';
 import checkIfUserExists from '../services/user_aux/checkIfUserExists';
 import GetUsers from '../services/getUsers';
 
+const s3 = new aws.S3
 
 export default class UserController {
   public async create(request: Request, response: Response) {
@@ -28,7 +28,7 @@ export default class UserController {
       const createUser = new CreateUser();
 
       const user = await createUser.execute({
-        photo_id: request.file.filename,
+        photo_id: request.file.key,
         name,
         cpf,
         email,
@@ -38,9 +38,17 @@ export default class UserController {
 
       return response.json(user);
     } catch (error) {
-      const deleteAsync = promisify(fs.unlink);
-      await deleteAsync(request.file.path);
-      response.status(error.statusCode).json({message: error.message});
+      s3.deleteObject({
+        Bucket: 'upload-meempresta',
+        Key: request.file.key,
+      }).promise()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((response) => {
+        console.log(response);
+      });
+      response.status(500).json({message: error.message});
     }
 
   }
