@@ -13,5 +13,9 @@ module.exports = {
   ],
   "cli": {
     "migrationsDir": process.env.MIGRATIONS_DIR_USE
-  }
+  },
+  "ssl":  process.env.SSL,
+  "extra": {
+    "ssl": process.env.SSL,
+  },
 }

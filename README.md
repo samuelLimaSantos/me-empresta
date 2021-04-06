@@ -40,8 +40,6 @@ Imagina as possibilidades?
       - Rota responsável por mostrar apenas um  produto de acordo com o id informado no query params.
 
 
-
-
 ## Tecnologias utilizadas no back :computer:
 
 - NodeJs
