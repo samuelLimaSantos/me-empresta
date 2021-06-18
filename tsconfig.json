@@ -6,6 +6,7 @@
       ],
       "target": "es2017",
       "module": "commonjs",
+      "rootDir": "./src",
       "moduleResolution": "node",
       "outDir": "./dist",
       "emitDecoratorMetadata": true,
