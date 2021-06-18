@@ -10,7 +10,7 @@ describe("Users",() => {
   it("should be able to pass the second test", () => {
     const number = 1;
 
-    expect(number).toBe(2);
+    expect(number).toBe(1);
   });
 
 });
