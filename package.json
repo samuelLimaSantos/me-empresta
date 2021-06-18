@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "src/server.ts",
   "license": "MIT",
-  "resolutions": {
-    "**/pretty-format": "25.1.0"
-  },
   "scripts": {
     "start": "node dist/server.js",
     "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts",
