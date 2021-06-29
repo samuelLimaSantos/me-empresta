@@ -76,6 +76,7 @@ export default  {
       "image/pjpeg",
       "image/png",
       "image/gif",
+      "image/jpg"
     ];
 
     if (allowedMimes.includes(file.mimetype)) {
