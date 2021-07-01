@@ -67,7 +67,7 @@ export default class ProductController {
 
 
     const products = await productRepository.find({
-      order: {id: 'DESC'}
+      order: {created_at: 'DESC'}
     });
 
     return response.json(products);
