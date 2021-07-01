@@ -66,7 +66,9 @@ export default class ProductController {
     console.log(path.join(__dirname, '..'))
 
 
-    const products = await productRepository.find()
+    const products = await productRepository.find({
+      order: {id: 'DESC'}
+    });
 
     return response.json(products);
   }
