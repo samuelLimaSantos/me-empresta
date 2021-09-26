@@ -5,7 +5,9 @@ import routes from './routes';
 import * as dotenv from 'dotenv';
 import './database';
 import 'reflect-metadata';
+import createConnection from './database';
 
+createConnection();
 
 const app = express();
 dotenv.config()
