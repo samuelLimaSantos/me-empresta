@@ -54,7 +54,7 @@ describe("Authentication", () => {
     expect(user.body.message).toBe("Email/password does not match.");
   });
 
-  it('should be able to create a new user', async() => {
+  it('should be able to create a new user', async () => {
 
     const user = await createUser('/user', {
       name: 'john doe',
@@ -69,7 +69,7 @@ describe("Authentication", () => {
   });
 
 
-  it('should be able to authenticate on app', async() => {
+  it('should be able to authenticate on app', async () => {
     const user = await request(app)
       .post('/session')
       .send({
@@ -80,4 +80,23 @@ describe("Authentication", () => {
     expect(user.status).toBe(200);
     expect(user.body).toHaveProperty('token');
   });
+
+  it('should be able to get user information', async () => {
+    const createdUser = await createUser('/user', {
+      name: 'João Gomes',
+      cpf: 987654321,
+      email: 'jao@test.com',
+      password: 'joaotest',
+      whatsapp: '123456789'
+    });
+    const userSession = await request(app).post('/session').send({
+      email: createdUser.body.email,
+      password: 'joaotest'
+    })
+    const userData = await request(app).get(`/user/${userSession.body.userId}`)
+      .set('Authorization', ` Bearer ${userSession.body.token}`);
+    expect(userData.body).toHaveProperty('id')
+    expect(userData.body.id).not.toBeNull()
+  });
+
 });
