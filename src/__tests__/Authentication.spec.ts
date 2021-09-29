@@ -12,7 +12,7 @@ type User = {
   whatsapp: string;
 }
 
-async function createUser(route: string, user: User) {
+export async function createUser(route: string, user: User) {
   const imagePath = path.resolve(__dirname, 'avatar_fake.jpg');
 
   const userCreated = await request(app)
