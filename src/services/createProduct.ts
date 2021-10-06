@@ -26,7 +26,6 @@ export default class CreateProduct {
 
 
       await productRepository.save(product);
-      console.log(product);;
 
       return product;
 

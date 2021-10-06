@@ -49,7 +49,7 @@ export default class ProductController {
         Key: request.key,
       }).promise()
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
       .catch((response) => {
         console.log(response);
