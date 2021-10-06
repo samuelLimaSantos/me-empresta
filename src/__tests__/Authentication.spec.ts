@@ -83,7 +83,7 @@ describe("Authentication", () => {
 
   it('should be able to get user information', async () => {
     const createdUser = await createUser('/user', {
-      name: 'JoÃ£o Gomes',
+      name: 'João Gomes',
       cpf: 987654321,
       email: 'jao@test.com',
       password: 'joaotest',
