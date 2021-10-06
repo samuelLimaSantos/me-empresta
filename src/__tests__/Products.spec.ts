@@ -83,32 +83,4 @@ describe("Products", () => {
     expect(product.status).toBe(200);
     expect(product.body).toHaveProperty('id');
   });
-
-  it('should be able to list a product by id', async() => {
-    const session = await request(app)
-      .post('/session')
-      .send({
-        email: 'johndoe@test.com',
-        password: 'fakepassword'
-      });
-
-    const productCreated = await createProduct('/product', {
-      user_id: session.body.userId,
-      title: 'produto da resenha 2',
-      city: 'Gaibu',
-      delivery_point: 'Recife',
-      delivery_way: 'mail',
-      description: 'descrição legal',
-      price: 78.90,
-      quantity_days: 100,
-      uf: 'PE',
-    }, session.body.token);
-
-    const product = await request(app)
-      .get(`/product/${productCreated.body.id}`)
-      .set('Authorization', `Bearer ${session.body.token}`);
-
-    expect(product.status).toBe(200);
-    expect(product.body).toHaveProperty('id');
-  })
-});
+})
