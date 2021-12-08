@@ -29,7 +29,7 @@ export default class ProductController {
 
       const product = await createProduct.execute({
         user_id,
-        photo_id: request.key,
+        photo_id: request.file.filename,
         title,
         description,
         price: Number(price),
@@ -44,16 +44,16 @@ export default class ProductController {
 
       return response.json(product);
     } catch (error) {
-      s3.deleteObject({
-        Bucket: 'upload-meempresta',
-        Key: request.key,
-      }).promise()
-      .then((response) => {
-        // console.log(response);
-      })
-      .catch((response) => {
-        console.log(response);
-      });
+      // s3.deleteObject({
+      //   Bucket: 'upload-meempresta',
+      //   Key: request.key,
+      // }).promise()
+      // .then((response) => {
+      //   // console.log(response);
+      // })
+      // .catch((response) => {
+      //   console.log(response);
+      // });
       // const deleteAsync = promisify(fs.unlink);
       // await deleteAsync(request.file.path);
       return response.status(500).json(error.message);

@@ -28,7 +28,7 @@ export default class UserController {
       const createUser = new CreateUser();
 
       const user = await createUser.execute({
-        photo_id: request.key,
+        photo_id: request.file.filename,
         name,
         cpf,
         email,
@@ -38,17 +38,17 @@ export default class UserController {
 
       return response.json(user);
     } catch (error) {
-      s3.deleteObject({
-        Bucket: 'upload-meempresta',
-        Key: request.key,
-      }).promise()
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((response) => {
-        console.log(response);
-      });
-      response.status(500).json({message: error.message});
+      // s3.deleteObject({
+      //   Bucket: 'upload-meempresta',
+      //   Key: request.key,
+      // }).promise()
+      // .then((response) => {
+      //   console.log(response);
+      // })
+      // .catch((response) => {
+      //   console.log(response);
+      // });
+      // response.status(500).json({message: error.message});
     }
 
   }

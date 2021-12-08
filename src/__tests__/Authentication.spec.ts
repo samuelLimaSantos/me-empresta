@@ -95,6 +95,7 @@ describe("Authentication", () => {
     })
     const userData = await request(app).get(`/user/${userSession.body.userId}`)
       .set('Authorization', ` Bearer ${userSession.body.token}`);
+
     expect(userData.body).toHaveProperty('id')
     expect(userData.body.id).not.toBeNull()
   });
