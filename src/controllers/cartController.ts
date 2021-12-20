@@ -11,14 +11,20 @@ export default class CartController {
       user_id,
     } = request.body;
 
-    const cartObject = cartRepository.create({
-      products,
-      user_id
-    });
+    let cart = await cartRepository.findOne({ user_id });
 
-    await cartRepository.save(cartObject);
+    if (cart) {
+      cart.products = products;
+    } else {
+      cart = cartRepository.create({
+        products,
+        user_id
+      });
+    }
 
-    return response.json();
+    cart = await cartRepository.save(cart);
+
+    return response.json(cart);
   }
 
   public async getProductsInCartByUserId(request: Request, response: Response) {
@@ -30,5 +36,15 @@ export default class CartController {
     const products = await cartRepository.find({ where: {user_id} });
 
     return response.json(products);
+  }
+
+  public async removeCart(request: Request, response: Response) {
+    const cartRepository = getMongoRepository(Cart, 'mongo');
+
+    const { cart_id } = request.params;
+
+    await cartRepository.delete(cart_id);
+
+    return response.send();
   }
 }
