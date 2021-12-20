@@ -28,7 +28,6 @@ export default class CartController {
 
 
     const products = await cartRepository.find({ where: {user_id} });
-    console.log(products);
 
     return response.json(products);
   }

@@ -16,7 +16,7 @@ defineFeature(feature, test => {
   beforeAll(async () => {
     const connection = await createConnection() as unknown as Connection;
 
-    await connection.runMigrations();
+    await connection[0].runMigrations();
   });
 
   afterAll(async () => {
