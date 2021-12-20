@@ -48,7 +48,7 @@ export default class UserController {
       // .catch((response) => {
       //   console.log(response);
       // });
-      // response.status(500).json({message: error.message});
+      response.status(500).json({message: error.message});
     }
 
   }
